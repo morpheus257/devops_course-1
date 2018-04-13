@@ -7,7 +7,7 @@ pipeline {
             }
         }
         stage('release') {
-            when { branch 'master' }
+            when {allOf { branch 'master' ; not {changeRequest author: 'Jenkins'}}}
             environment {
                 DOCKER_REPOSITORY = 'filippo123456'
             }
@@ -15,7 +15,7 @@ pipeline {
                   withCredentials([usernamePassword(credentialsId: 'docker_login', usernameVariable: 'USER', passwordVariable: 'PSW')]) {
                     sh 'docker login -u ${USER} -p ${PSW}'
                   }
-                  sshagent (credentials: ['GitHub'] {
+                  sshagent (credentials: ['GitHub']) {
                     sh 'sbt "release with-defaults"'
                   }
             }
