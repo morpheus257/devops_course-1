@@ -16,7 +16,8 @@ pipeline {
                     sh 'docker login -u ${USER} -p ${PSW}'
                   }
                   sshagent (credentials: ['GitHub'] {
-                  sh 'sbt "release with-defaults"'
+                    sh 'sbt "release with-defaults"'
+                  }
             }
         }
     }
