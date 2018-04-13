@@ -1,5 +1,4 @@
-pipeline
-{
+pipeline {
     agent any
     stages {
         stage('Checkout SCM'){
@@ -14,7 +13,7 @@ pipeline
             }
             steps {
                   withCredentials([usernamePassword(credentialsId: 'docker_login', usernameVariable: 'USER', passwordVariable: 'PSW')]) {
-                    sh 'docker login -u $(USER) -p $(PSW)'
+                    sh 'docker login -u ${USER} -p ${PSW}'
                   }
                   sshagent (credentials: ['GitHub'] {
                   sh 'sbt "release with-defaults"'
@@ -26,4 +25,5 @@ pipeline
             deleteDir()
     }
     }
+}
 }
