@@ -13,7 +13,7 @@ pipeline
                 DOCKER_REPOSITORY = 'filippo123456'
             }
             steps {
-                  withCredentials([usernamePassword(credentialsId: 'docker_login', usernameVariable: 'USER' passwordVariable: 'PSW')]) {
+                  withCredentials([usernamePassword(credentialsId: 'docker_login', usernameVariable: 'USER', passwordVariable: 'PSW')]) {
                     sh 'docker login -u $(USER) -p $(PSW)'
                   }
                   sshagent (credentials: ['GitHub'] {
