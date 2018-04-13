@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout SCM'){
             steps{
-                checkout scm
+                sh 'git checkout ${env.BRANCH_NAME}'
             }
         }
         stage('release') {
@@ -12,7 +12,7 @@ pipeline {
                 DOCKER_REPOSITORY = 'filippo123456'
             }
             steps {
-                sh 'sbt release'
+                sh 'sbt "release with-defaults"'
             }
         }
     }
